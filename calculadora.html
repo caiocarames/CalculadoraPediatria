@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de Idade do Bebê</title>
+  <style>
+    :root {
+      --cor-primaria: #7bcfff;
+      --cor-secundaria: #f0fbff;
+      --cor-texto: #333;
+      --cor-botao: #ffb347;
+      --cor-botao-hover: #ffa726;
+      --cor-borda: #d3eafd;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--cor-secundaria);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px 35px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-width: 460px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #4a90e2;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    .emoji {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--cor-texto);
+    }
+
+    input[type="datetime-local"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--cor-borda);
+      border-radius: 10px;
+      font-size: 16px;
+      background-color: #fdfdfd;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      flex: 1;
+      background-color: var(--cor-botao);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: var(--cor-botao-hover);
+      transform: scale(1.02);
+    }
+
+    .resultado {
+      margin-top: 25px;
+      background-color: #e1f5fe;
+      border-left: 5px solid #4fc3f7;
+      padding: 15px 18px;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #2d3e50;
+      font-weight: 500;
+    }
+
+    .checkbox {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px 20px;
+        border-radius: 16px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Calculadora de Idade do Bebê</h2>
+    <div class="emoji">🍼👶🌈</div>
+
+    <label for="dataNascimento">Data e hora de nascimento:</label>
+    <input type="datetime-local" id="dataNascimento" oninput="limitarAno(this)" />
+
+    <label for="dataReferencia">Data e hora de referência:</label>
+    <div class="row">
+      <input type="datetime-local" id="dataReferencia" oninput="limitarAno(this)" style="flex: 2;" />
+      <button onclick="usarHoraAtual()" style="flex: 1;">Agora</button>
+    </div>
+
+    <div class="checkbox">
+      <input type="checkbox" id="modoAoVivo" onchange="alternarAoVivo(this)">
+      <label for="modoAoVivo">Atualizar em tempo real</label>
+    </div>
+
+    <div class="row">
+      <button onclick="calcularHorasVida()">Calcular</button>
+      <button onclick="compartilharWhatsapp()">Compartilhar</button>
+    </div>
+
+    <div class="resultado" id="resultado"></div>
+  </div>
+
+  <script>
+    let intervaloAoVivo = null;
+
+    // Define a data máxima ao carregar
+    window.onload = () => {
+      const agora = new Date();
+      const maxDatetime = agora.toISOString().slice(0, 16);
+      document.getElementById("dataNascimento").setAttribute("max", maxDatetime);
+      document.getElementById("dataReferencia").setAttribute("max", maxDatetime);
+    };
+
+    // Limita ano a 4 dígitos (silencioso)
+    function limitarAno(input) {
+      const valor = input.value;
+      const partes = valor.split("-");
+      if (partes[0] && partes[0].length > 4) {
+        partes[0] = partes[0].slice(0, 4);
+        input.value = partes.join("-");
+      }
+    }
+
+    // Preenche o campo de referência com a hora atual
+    function usarHoraAtual() {
+      const agora = new Date();
+      const atual = agora.toISOString().slice(0, 16);
+      document.getElementById("dataReferencia").value = atual;
+      calcularHorasVida();
+    }
+
+    // Habilita/desabilita modo ao vivo
+    function alternarAoVivo(checkbox) {
+      if (checkbox.checked) {
+        usarHoraAtual();
+        intervaloAoVivo = setInterval(usarHoraAtual, 1000);
+      } else {
+        clearInterval(intervaloAoVivo);
+      }
+    }
+
+    // Calcula a idade em horas
+    function calcularHorasVida() {
+      const nascimento = new Date(document.getElementById("dataNascimento").value);
+      const referencia = new Date(document.getElementById("dataReferencia").value);
+      const resultado = document.getElementById("resultado");
+
+      if (isNaN(nascimento) || isNaN(referencia)) {
+        resultado.textContent = "Por favor, preencha ambas as datas.";
+        return;
+      }
+
+      if (referencia < nascimento) {
+        resultado.textContent = "A data de referência não pode ser anterior ao nascimento.";
+        return;
+      }
+
+      const diffMs = referencia - nascimento;
+      const diffHoras = diffMs / (1000 * 60 * 60);
+      const diffMin = diffMs / (1000 * 60);
+      const diffDias = diffMs / (1000 * 60 * 60 * 24);
+      const horas = Math.floor(diffHoras * 100) / 100;
+      const minutos = Math.floor(diffMin);
+      const dias = Math.floor(diffDias * 100) / 100;
+
+      resultado.textContent = `O bebê tem aproximadamente ${horas} horas de vida.`;
+    }
+
+    // Compartilha por WhatsApp
+    function compartilharWhatsapp() {
+      const texto = document.getElementById("resultado").textContent;
+      if (!texto) {
+        alert("Você precisa calcular a idade primeiro.");
+        return;
+      }
+      const url = "https://wa.me/?text=" + encodeURIComponent(texto);
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
