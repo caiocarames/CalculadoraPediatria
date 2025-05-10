@@ -155,29 +155,43 @@
       display: block;
     }
 
+    .data-ref {
+      display: flex;
+      gap: 10px;
+    }
 
-
+    .btn-agora {
+      white-space: nowrap;
+    }
 
     @media (max-width: 600px) {
-      .container {
-        padding: 25px 20px;
-        border-radius: 20px;
+      .data-ref {
+        flex-direction: column;
       }
 
-      h2 {
-        font-size: 22px;
+      .btn-agora {
+        width: 100%;
+      }
+
+      .row {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .container {
+        border-radius: 20px;
+        padding: 30px 24px;
       }
 
       button {
-        font-size: 14px;
+        font-size: 16px;
       }
 
-      .input-grande {
-        flex: 1;
-        min-width: 0;
+      input[type="datetime-local"] {
+        font-size: 16px;
       }
-
     }
+
   </style>
 </head>
 <body>
@@ -191,10 +205,11 @@
     <input type="datetime-local" id="dataNascimento" oninput="limitarAno(this)" />
 
     <label for="dataReferencia">Data e hora de referência:</label>
-    <div class="row">
+    <div class="row data-ref">
       <input type="datetime-local" id="dataReferencia" oninput="limitarAno(this)" class="input-grande" />
-      <button onclick="usarHoraAtual()">Agora</button>
+      <button onclick="usarHoraAtual()" class="btn-agora">Agora</button>
     </div>
+    
     
 
     <div class="checkbox">
