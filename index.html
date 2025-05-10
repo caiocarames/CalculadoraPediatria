@@ -111,14 +111,51 @@
     }
 
     .checkbox {
-      margin-top: 10px;
-      font-size: 13px;
-    }
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--cor-texto);
+  margin-top: 15px;
+}
+
+.checkbox input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--cor-primaria);
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.2s ease;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox input[type="checkbox"]::before {
+  content: "✓";
+  font-size: 14px;
+  color: white;
+  display: none;
+}
+
+.checkbox input[type="checkbox"]:checked {
+  background-color: var(--cor-botao);
+  border-color: var(--cor-botao);
+}
+
+.checkbox input[type="checkbox"]:checked::before {
+  display: block;
+}
+
+
 
     @media (max-width: 600px) {
       .container {
         padding: 25px 20px;
-        border-radius: 16px;
+        border-radius: 20px;
       }
 
       h2 {
@@ -128,6 +165,12 @@
       button {
         font-size: 14px;
       }
+
+      .input-grande {
+        flex: 1;
+        min-width: 0;
+      }
+
     }
   </style>
 </head>
@@ -143,14 +186,17 @@
 
     <label for="dataReferencia">Data e hora de referência:</label>
     <div class="row">
-      <input type="datetime-local" id="dataReferencia" oninput="limitarAno(this)" style="flex: 2;" />
-      <button onclick="usarHoraAtual()" style="flex: 1;">Agora</button>
+      <input type="datetime-local" id="dataReferencia" oninput="limitarAno(this)" class="input-grande" />
+      <button onclick="usarHoraAtual()">Agora</button>
     </div>
+    
 
     <div class="checkbox">
       <input type="checkbox" id="modoAoVivo" onchange="alternarAoVivo(this)">
       <label for="modoAoVivo">Atualizar em tempo real</label>
     </div>
+    
+    
 
     <div class="row">
       <button onclick="calcularHorasVida()">Calcular</button>
@@ -181,10 +227,13 @@
 
     function usarHoraAtual() {
       const agora = new Date();
-      const atual = agora.toISOString().slice(0, 16);
-      document.getElementById("dataReferencia").value = atual;
+      const timezoneOffset = agora.getTimezoneOffset() * 60000;
+      const localDatetime = new Date(agora - timezoneOffset).toISOString().slice(0, 16);
+      document.getElementById("dataReferencia").value = localDatetime;
       calcularHorasVida();
     }
+
+
 
     function alternarAoVivo(checkbox) {
       if (checkbox.checked) {
