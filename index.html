@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calculadora de Idade do Bebê</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#a974c5">
+
   <style>
     :root {
       --cor-primaria: #a974c5;
@@ -168,7 +172,7 @@
   <div class="container">
     <h2>Horinhas de Vida</h2>
     <div class="icon-wrapper">
-      <img src="baby-icon.png" alt="Ícone de bebê fofo" />
+      <img src="icons/baby-icon.png" alt="Ícone de bebê fofo" />
     </div>
 
     <label for="dataNascimento">Data e hora de nascimento:</label>
@@ -244,6 +248,16 @@
       const url = "https://wa.me/?text=" + encodeURIComponent(texto);
       window.open(url, "_blank");
     }
+    
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(reg => console.log("Service Worker registrado!", reg))
+        .catch(err => console.error("Erro ao registrar o Service Worker", err));
+    });
+  }
+</script>
+
   </script>
 </body>
 </html>
