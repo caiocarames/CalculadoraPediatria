@@ -4,14 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calculadora de Idade do Bebê</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cor-primaria: #7bcfff;
-      --cor-secundaria: #f0fbff;
-      --cor-texto: #333;
-      --cor-botao: #ffb347;
-      --cor-botao-hover: #ffa726;
-      --cor-borda: #d3eafd;
+      --cor-primaria: #a974c5;
+      --cor-secundaria: #f5f0ff;
+      --cor-texto: #444;
+      --cor-botao: #ffa4ba;
+      --cor-botao-hover: #f78ca2;
+      --cor-borda: #dec8f5;
     }
 
     * {
@@ -21,7 +22,7 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins', sans-serif;
       background-color: var(--cor-secundaria);
       display: flex;
       justify-content: center;
@@ -33,22 +34,28 @@
       background-color: #fff;
       padding: 30px 35px;
       border-radius: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
       max-width: 460px;
       width: 100%;
     }
 
     h2 {
       text-align: center;
-      color: #4a90e2;
-      font-size: 24px;
-      margin-bottom: 5px;
+      color: var(--cor-primaria);
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
     }
 
-    .emoji {
+    .icon-wrapper {
       text-align: center;
-      font-size: 30px;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
+    }
+
+    .icon-wrapper img {
+      width: 64px;
+      height: auto;
     }
 
     label {
@@ -63,7 +70,7 @@
       padding: 10px 12px;
       border: 1px solid var(--cor-borda);
       border-radius: 10px;
-      font-size: 16px;
+      font-size: 15px;
       background-color: #fdfdfd;
     }
 
@@ -79,8 +86,8 @@
       color: #fff;
       border: none;
       padding: 12px;
-      font-size: 16px;
-      font-weight: bold;
+      font-size: 15px;
+      font-weight: 600;
       border-radius: 10px;
       margin-top: 20px;
       cursor: pointer;
@@ -94,18 +101,18 @@
 
     .resultado {
       margin-top: 25px;
-      background-color: #e1f5fe;
-      border-left: 5px solid #4fc3f7;
+      background-color: #f3eaff;
+      border-left: 5px solid var(--cor-primaria);
       padding: 15px 18px;
       border-radius: 8px;
-      font-size: 16px;
-      color: #2d3e50;
+      font-size: 15px;
+      color: #2d2d2d;
       font-weight: 500;
     }
 
     .checkbox {
       margin-top: 10px;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     @media (max-width: 600px) {
@@ -115,11 +122,11 @@
       }
 
       h2 {
-        font-size: 20px;
+        font-size: 22px;
       }
 
       button {
-        font-size: 15px;
+        font-size: 14px;
       }
     }
   </style>
@@ -127,7 +134,9 @@
 <body>
   <div class="container">
     <h2>Calculadora de Idade do Bebê</h2>
-    <div class="emoji">🍼👶🌈</div>
+    <div class="icon-wrapper">
+      <img src="baby-icon.png" alt="Ícone de bebê fofo" />
+    </div>
 
     <label for="dataNascimento">Data e hora de nascimento:</label>
     <input type="datetime-local" id="dataNascimento" oninput="limitarAno(this)" />
@@ -154,7 +163,6 @@
   <script>
     let intervaloAoVivo = null;
 
-    // Define a data máxima ao carregar
     window.onload = () => {
       const agora = new Date();
       const maxDatetime = agora.toISOString().slice(0, 16);
@@ -162,7 +170,6 @@
       document.getElementById("dataReferencia").setAttribute("max", maxDatetime);
     };
 
-    // Limita ano a 4 dígitos (silencioso)
     function limitarAno(input) {
       const valor = input.value;
       const partes = valor.split("-");
@@ -172,7 +179,6 @@
       }
     }
 
-    // Preenche o campo de referência com a hora atual
     function usarHoraAtual() {
       const agora = new Date();
       const atual = agora.toISOString().slice(0, 16);
@@ -180,7 +186,6 @@
       calcularHorasVida();
     }
 
-    // Habilita/desabilita modo ao vivo
     function alternarAoVivo(checkbox) {
       if (checkbox.checked) {
         usarHoraAtual();
@@ -190,7 +195,6 @@
       }
     }
 
-    // Calcula a idade em horas
     function calcularHorasVida() {
       const nascimento = new Date(document.getElementById("dataNascimento").value);
       const referencia = new Date(document.getElementById("dataReferencia").value);
@@ -217,7 +221,6 @@
       resultado.textContent = `O bebê tem aproximadamente ${horas} horas de vida.`;
     }
 
-    // Compartilha por WhatsApp
     function compartilharWhatsapp() {
       const texto = document.getElementById("resultado").textContent;
       if (!texto) {
