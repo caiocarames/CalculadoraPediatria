@@ -75,6 +75,7 @@
       font-size: 14px;
       background-color: #fdfdfd;
       min-height: 48px;
+      display: block;
     }
 
     .data-ref {
@@ -172,7 +173,7 @@
       <button onclick="usarHoraAtual()" class="btn-agora">Agora</button>
 
       <div class="hora-aplicar">
-        <input type="number" id="horaEscolhida" min="0" max="23" value="7" placeholder="Horas amanhã" />
+        <input type="number" id="horaEscolhida" min="0" max="23" value="7" placeholder="Ex: 7 horas até amanhã" />
         <button onclick="usarAteHoraDeAmanha()" class="btn-agora">Aplicar</button>
       </div>
     </div>
@@ -217,17 +218,23 @@
         return;
       }
 
-      const agora = new Date();
-      const timezoneOffset = agora.getTimezoneOffset() * 60000;
-      const localAgora = new Date(agora - timezoneOffset);
+      const nascimentoInput = document.getElementById("dataNascimento").value;
+      let nascimento;
 
-      const nascimentoStr = localAgora.toISOString().slice(0, 16);
-      document.getElementById("dataNascimento").value = nascimentoStr;
+      if (nascimentoInput) {
+        nascimento = new Date(nascimentoInput);
+      } else {
+        const agora = new Date();
+        const timezoneOffset = agora.getTimezoneOffset() * 60000;
+        nascimento = new Date(agora - timezoneOffset);
+        document.getElementById("dataNascimento").value = nascimento.toISOString().slice(0, 16);
+      }
 
-      const amanha = new Date(localAgora);
+      const amanha = new Date(nascimento);
       amanha.setDate(amanha.getDate() + 1);
       amanha.setHours(horaAlvo, 0, 0, 0);
 
+      const timezoneOffset = amanha.getTimezoneOffset() * 60000;
       const referenciaStr = new Date(amanha - timezoneOffset).toISOString().slice(0, 16);
       document.getElementById("dataReferencia").value = referenciaStr;
 
