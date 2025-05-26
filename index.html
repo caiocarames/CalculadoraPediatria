@@ -113,9 +113,9 @@
     .hora-aplicar {
       display: flex;
       gap: 8px;
-      margin-bottom: 12px;
-      width: 100%;
+      margin-bottom: 6px;
     }
+
 
     .hora-aplicar input[type="number"] {
       flex: 1;
@@ -154,8 +154,8 @@
 
     .row {
       display: flex;
-      gap: 10px;
-      margin-top: 8px;
+      gap: 8px;
+      margin-top: 4px;
     }
 
     .row button {
@@ -191,7 +191,7 @@
       <input type="datetime-local" id="dataReferencia" oninput="limitarAno(this)" />
       <button onclick="usarHoraAtual()" class="btn-agora">Agora</button>
       <div class="hora-aplicar">
-        <input type="number" id="horaEscolhida" min="0" max="23" value="7" placeholder="Ex: 7 horas até amanhã" />
+        <input type="number" id="horaEscolhida" min="0" max="23" value="7" placeholder="Hora amanhã" />
         <button onclick="usarAteHoraDeAmanha()" class="btn-agora">Aplicar</button>
       </div>
     </div>
@@ -214,10 +214,15 @@
     }
 
     const babyIcons = [
-      "icons/baby-icon.png",
       "icons/baby-icon2.png",
       "icons/baby-icon3.png",
       "icons/baby-icon4.png",
+      "icons/baby-icon5.png",
+      "icons/baby-icon6.png",
+      "icons/baby-icon7.png",
+      "icons/baby-icon8.png",
+      "icons/baby-icon9.png",
+      "icons/baby-icon10.png",
     ];
 
     function trocarBebeAleatorio() {
