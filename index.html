@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calculadora de Idade do Bebê</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
   <meta name="theme-color" content="#a974c5">
 
   <style>
@@ -25,103 +23,108 @@
 
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Poppins', sans-serif;
       background-color: var(--cor-secundaria);
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
+      padding: 1rem;
       min-height: 100vh;
     }
 
     .container {
       background-color: #fff;
-      padding: 30px 35px;
-      border-radius: 20px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-      max-width: 460px;
+      padding: 20px 25px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
       width: 100%;
+      max-width: 420px;
     }
 
     h2 {
       text-align: center;
       color: var(--cor-primaria);
-      font-size: 30px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
+      font-size: 22px;
+      margin-bottom: 12px;
     }
 
     .icon-wrapper {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
     .icon-wrapper img {
-      width: 150px;
+      width: 110px;
       height: auto;
     }
 
     label {
       display: block;
-      margin-bottom: 8px;
       font-weight: 500;
       color: var(--cor-texto);
+      font-size: 0.9rem;
+      margin-bottom: 6px;
     }
 
-    input[type="datetime-local"] {
+    input[type="datetime-local"],
+    input[type="number"] {
       width: 100%;
       padding: 10px 12px;
       border: 1px solid var(--cor-borda);
-      border-radius: 10px;
-      font-size: 15px;
-      background-color: #fdfdfd;
-    }
-
-    .row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: nowrap;
-      margin-top: 20px;
-    }
-
-    button {
-      flex: 1;
-      background-color: var(--cor-botao);
-      color: #fff;
-      border: none;
-      padding: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    button:hover {
-      background-color: var(--cor-botao-hover);
-      transform: scale(1.02);
-    }
-
-    .resultado {
-      margin-top: 25px;
-      background-color: #f3eaff;
-      border-left: 5px solid var(--cor-primaria);
-      padding: 15px 18px;
       border-radius: 8px;
-      font-size: 15px;
-      color: #2d2d2d;
-      font-weight: 700;
+      font-size: 14px;
+      background-color: #fdfdfd;
+      min-height: 48px;
     }
 
     .data-ref {
       display: flex;
+      flex-direction: column;
       gap: 10px;
-      margin-top: 10px;
+      margin-bottom: 8px;
+    }
+
+    .hora-aplicar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .hora-aplicar input[type="number"] {
+      flex: 1;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--cor-borda);
+      font-size: 14px;
+      text-align: center;
+      min-height: 48px;
+    }
+
+    .hora-aplicar button {
+      flex: 1;
+      min-height: 48px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    button {
+      min-height: 48px;
+      padding: 12px 14px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      background-color: var(--cor-botao);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: var(--cor-botao-hover);
     }
 
     .btn-agora {
-      white-space: nowrap;
       background-color: var(--cor-primaria);
     }
 
@@ -129,42 +132,27 @@
       background-color: #9161c6;
     }
 
-    @media (max-width: 600px) {
-      body {
-        padding: 16px 16px;
-      }
-      .data-ref {
-        flex-direction: column;
-      }
+    .row {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
 
-      .btn-agora {
-        width: 100%;
-      }
+    .row button {
+      flex: 1;
+      min-height: 48px;
+      font-size: 14px;
+    }
 
-      .row {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-
-      .row button {
-        flex: 1 1 48%;
-      }
-
-      .container {
-        margin-top: 20px;
-        border-radius: 20px;
-        padding: 30px 32px;
-      }
-
-      button {
-        font-size: 16px;
-      }
-
-      input[type="datetime-local"] {
-        margin-bottom: 16px;
-        font-size: 16px;
-      }
+    .resultado {
+      margin-top: 16px;
+      background-color: #f3eaff;
+      border-left: 4px solid var(--cor-primaria);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #2d2d2d;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -172,7 +160,7 @@
   <div class="container">
     <h2>Horinhas de Vida</h2>
     <div class="icon-wrapper">
-      <img src="icons/baby-icon.png" alt="Ícone de bebê fofo" />
+      <img src="icons/baby-icon.png" alt="Ícone de bebê" />
     </div>
 
     <label for="dataNascimento">Data e hora de nascimento:</label>
@@ -182,6 +170,11 @@
     <div class="data-ref">
       <input type="datetime-local" id="dataReferencia" oninput="limitarAno(this)" />
       <button onclick="usarHoraAtual()" class="btn-agora">Agora</button>
+
+      <div class="hora-aplicar">
+        <input type="number" id="horaEscolhida" min="0" max="23" value="7" placeholder="Horas amanhã" />
+        <button onclick="usarAteHoraDeAmanha()" class="btn-agora">Aplicar</button>
+      </div>
     </div>
 
     <div class="row">
@@ -217,18 +210,42 @@
       calcularHorasVida();
     }
 
+    function usarAteHoraDeAmanha() {
+      const horaAlvo = parseInt(document.getElementById("horaEscolhida").value);
+      if (isNaN(horaAlvo) || horaAlvo < 0 || horaAlvo > 23) {
+        alert("Insira uma hora válida entre 0 e 23.");
+        return;
+      }
+
+      const agora = new Date();
+      const timezoneOffset = agora.getTimezoneOffset() * 60000;
+      const localAgora = new Date(agora - timezoneOffset);
+
+      const nascimentoStr = localAgora.toISOString().slice(0, 16);
+      document.getElementById("dataNascimento").value = nascimentoStr;
+
+      const amanha = new Date(localAgora);
+      amanha.setDate(amanha.getDate() + 1);
+      amanha.setHours(horaAlvo, 0, 0, 0);
+
+      const referenciaStr = new Date(amanha - timezoneOffset).toISOString().slice(0, 16);
+      document.getElementById("dataReferencia").value = referenciaStr;
+
+      calcularHorasVida();
+    }
+
     function calcularHorasVida() {
       const nascimento = new Date(document.getElementById("dataNascimento").value);
       const referencia = new Date(document.getElementById("dataReferencia").value);
       const resultado = document.getElementById("resultado");
 
       if (isNaN(nascimento) || isNaN(referencia)) {
-        resultado.textContent = "Por favor, preencha ambas as datas.";
+        resultado.textContent = "Preencha ambas as datas.";
         return;
       }
 
       if (referencia < nascimento) {
-        resultado.textContent = "A data de referência não pode ser anterior ao nascimento.";
+        resultado.textContent = "A referência não pode ser anterior ao nascimento.";
         return;
       }
 
@@ -248,16 +265,6 @@
       const url = "https://wa.me/?text=" + encodeURIComponent(texto);
       window.open(url, "_blank");
     }
-
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("service-worker.js")
-        .then(reg => console.log("Service Worker registrado!", reg))
-        .catch(err => console.error("Erro ao registrar o Service Worker", err));
-    });
-  }
-</script>
-
   </script>
 </body>
 </html>
