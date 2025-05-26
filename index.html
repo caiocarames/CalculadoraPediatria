@@ -123,7 +123,7 @@
     }
 
     .hora-aplicar button {
-      flex: 1.5;
+      flex: 1;
     }
 
     button {
@@ -171,6 +171,8 @@
       font-size: 14px;
       color: #2d2d2d;
       font-weight: 600;
+      text-align: center;
+
     }
   </style>
 </head>
@@ -178,7 +180,7 @@
   <div class="container">
     <h2>Horinhas de Vida</h2>
     <div class="icon-wrapper">
-      <img src="icons/baby-icon.png" alt="Ícone de bebê" />
+      <img id="babyIcon" src="icons/baby-icon.png" alt="Ícone de bebê" />
     </div>
 
     <label for="dataNascimento">Data e hora de nascimento:</label>
@@ -211,6 +213,18 @@
       });
     }
 
+    const babyIcons = [
+      "icons/baby-icon.png",
+      "icons/baby-icon2.png",
+      "icons/baby-icon3.png",
+      "icons/baby-icon4.png",
+    ];
+
+    function trocarBebeAleatorio() {
+      const escolhido = babyIcons[Math.floor(Math.random() * babyIcons.length)];
+      document.getElementById("babyIcon").src = escolhido;
+    }
+
     window.onload = () => {
       const agora = new Date();
       const maxDatetime = agora.toISOString().slice(0, 16);
@@ -233,6 +247,7 @@
       const localDatetime = new Date(agora - timezoneOffset).toISOString().slice(0, 16);
       document.getElementById("dataReferencia").value = localDatetime;
       calcularHorasVida();
+      trocarBebeAleatorio();
     }
 
     function usarAteHoraDeAmanha() {
@@ -263,6 +278,7 @@
       document.getElementById("dataReferencia").value = referenciaStr;
 
       calcularHorasVida();
+      trocarBebeAleatorio();
     }
 
     function calcularHorasVida() {
@@ -284,7 +300,8 @@
       const diffHoras = diffMs / (1000 * 60 * 60);
       const horas = Math.floor(diffHoras * 100) / 100;
 
-      resultado.textContent = `O bebê tem aproximadamente ${horas} horas de vida.`;
+      resultado.textContent = `${horas} horas de vida`;
+      trocarBebeAleatorio();
     }
 
     function compartilharWhatsapp() {
